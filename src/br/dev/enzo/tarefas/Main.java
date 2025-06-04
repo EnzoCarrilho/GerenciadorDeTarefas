@@ -13,18 +13,25 @@ import br.dev.enzo.tarefas.dao.FuncionarioDAO;
 import br.dev.enzo.tarefas.model.Funcionario;
 import br.dev.enzo.tarefas.model.Status;
 import br.dev.enzo.tarefas.model.Tarefa;
+import br.dev.enzo.tarefas.ui.FuncionarioFrame;
+import br.dev.enzo.tarefas.ui.FuncionarioListaFrame;
 import br.dev.enzo.tarefas.utils.Utils;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Funcionario funcionario = new Funcionario("Ana Maria", "DBA");
-		funcionario.setSetor("Tecnologia da Informação");
-		funcionario.setSalario(8987.9);
+//		FuncionarioDAO dao = new FuncionarioDAO(null);
+//		dao.getFuncionarios();
+		new FuncionarioListaFrame();
+		//new FuncionarioFrame();
 		
-		FuncionarioDAO dao = new FuncionarioDAO(funcionario);
-		dao.gravar();
+//		Funcionario funcionario = new Funcionario("Ana Maria", "DBA");
+//		funcionario.setSetor("Tecnologia da Informação");
+//		funcionario.setSalario(8987.9);
+//		
+//		FuncionarioDAO dao = new FuncionarioDAO(funcionario);
+//		dao.gravar();
 	}
 
 	
