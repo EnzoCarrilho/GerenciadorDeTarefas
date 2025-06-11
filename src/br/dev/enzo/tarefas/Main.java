@@ -21,9 +21,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		new FuncionarioListaFrame();
+		
+		
 //		FuncionarioDAO dao = new FuncionarioDAO(null);
 //		dao.getFuncionarios();
-		new FuncionarioListaFrame();
+		
 		//new FuncionarioFrame();
 		
 //		Funcionario funcionario = new Funcionario("Ana Maria", "DBA");

@@ -2,9 +2,12 @@ package br.dev.enzo.tarefas.model;
 
 import java.time.LocalDate;
 
+import br.dev.enzo.tarefas.utils.Utils;
+
 public class Tarefa {
 
 	private String nome;
+	private String codigo;
 	private String descricao;
 	private Funcionario responsavel;
 	private LocalDate dataInicio;
@@ -13,6 +16,7 @@ public class Tarefa {
 	private Status status;
 	
 	public Tarefa(Funcionario responsavel) {
+		setCodigo(Utils.gerarUUID8());
 		this.responsavel = responsavel;
 	}
 	
@@ -23,6 +27,14 @@ public class Tarefa {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+	
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getDescricao() {
