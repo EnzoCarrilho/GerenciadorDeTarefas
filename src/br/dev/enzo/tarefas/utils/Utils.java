@@ -15,18 +15,4 @@ public class Utils {
 		return uuid8;
 	}
 	
-	public static String dataParaString(LocalDate data) {
-		Date dataFormato = Date.valueOf(data);
-		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-		String stringDataInicio = formato.format(dataFormato);
-		return stringDataInicio;
-	}
-	
-	public static LocalDate stringParaData(String data) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate date = LocalDate.parse(data, formatter);
-		return date;
-	}
-	
-	
 }

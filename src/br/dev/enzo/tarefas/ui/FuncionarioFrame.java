@@ -31,11 +31,11 @@ public class FuncionarioFrame {
 	private JButton buttonSalvar;
 	private JButton buttonSair;
 	
-	public FuncionarioFrame(JFrame owner) {
+	public FuncionarioFrame(JDialog owner) {
 		criarTela(owner);
 	}
 	
-	private void criarTela(JFrame owner) { 
+	private void criarTela(JDialog owner) { 
 		JDialog telaFuncionario = new JDialog(owner, true);
 		telaFuncionario.setSize(500, 500);
 		telaFuncionario.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

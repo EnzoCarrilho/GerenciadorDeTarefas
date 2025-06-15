@@ -15,13 +15,21 @@ import br.dev.enzo.tarefas.model.Status;
 import br.dev.enzo.tarefas.model.Tarefa;
 import br.dev.enzo.tarefas.ui.FuncionarioFrame;
 import br.dev.enzo.tarefas.ui.FuncionarioListaFrame;
+import br.dev.enzo.tarefas.ui.MainFrame;
+import br.dev.enzo.tarefas.ui.TarefaFrame;
+import br.dev.enzo.tarefas.ui.TarefaListaFrame;
 import br.dev.enzo.tarefas.utils.Utils;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		new FuncionarioListaFrame();
+		//new TarefaListaFrame(null);
+		
+		new MainFrame();
+		//new TarefaFrame(null);
+		//new FuncionarioListaFrame();
+		
 		
 		
 //		FuncionarioDAO dao = new FuncionarioDAO(null);
@@ -37,47 +45,5 @@ public class Main {
 //		dao.gravar();
 	}
 
-	
-	
-	//testarLeituraEscriraArquivo();
-	private static void testarLeituraEscriraArquivo() {
-		String so = System.getProperty("os.name");
-		System.out.println(so);
-		
-		String path = "/Users/25132408/projetoTarefas/funcionarios";
-		
-		FileReader fr = null;
-		BufferedReader br = null;
-		
-		FileWriter fw = null;
-		BufferedWriter bw = null;
-		
-		try {
-			fr = new FileReader(path);
-			br = new BufferedReader(fr);
-			
-			fw = new FileWriter(path, true);
-			bw = new BufferedWriter(fw);
-			
-			bw.append("Enzo\n");
-			bw.flush();
-			
-			String linha = br.readLine();
-			
-			while(linha != null) {
-				System.out.println(linha);
-				linha = br.readLine();			
-		    }
-			
-		
-		} catch (FileNotFoundException exception) {
-			System.out.println("Arquivo nao encontrado!");
-		}catch (IOException exception) {
-			System.out.println("O arquivo está protegido para leitura!");
-		}catch (Exception exception) {
-			System.out.println(exception.getMessage());
-		}
-	}
-	
 
 }

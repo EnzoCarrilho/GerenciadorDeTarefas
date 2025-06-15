@@ -1,7 +1,12 @@
 package br.dev.enzo.tarefas.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import br.dev.enzo.tarefas.dao.FuncionarioDAO;
 import br.dev.enzo.tarefas.utils.Utils;
 
 public class Tarefa {
@@ -10,10 +15,13 @@ public class Tarefa {
 	private String codigo;
 	private String descricao;
 	private Funcionario responsavel;
+	private String nomeResponsavel;
 	private LocalDate dataInicio;
 	private int prazo;
 	private LocalDate dataEntrega;
 	private Status status;
+	private String txtDataInicio;
+	private String txtDataEntrega;
 	
 	public Tarefa(Funcionario responsavel) {
 		setCodigo(Utils.gerarUUID8());
@@ -49,16 +57,31 @@ public class Tarefa {
 		return responsavel;
 	}
 
-	public void setResponsavel(Funcionario responsavel) {
-		this.responsavel = responsavel;
+	public void setResponsavel(int index) {
+		
+		FuncionarioDAO dao = new FuncionarioDAO(null);
+		List<Funcionario> funcionarios = dao.getFuncionarios();
+		
+		responsavel = funcionarios.get(index);
+		nomeResponsavel = funcionarios.get(index).getNome();
+		
+	}
+	
+	public String getNomeResponsavel() {
+		return nomeResponsavel;
+	}
+	
+	public void setNomeResponsavel(String nomeResponsavel) {
+		this.nomeResponsavel = nomeResponsavel;
 	}
 
 	public LocalDate getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(LocalDate dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setDataInicio(String dataTxt) {
+		this.dataInicio = LocalDate.parse(dataTxt, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		txtDataInicio = dataInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); 
 	}
 
 	public int getPrazo() {
@@ -78,8 +101,9 @@ public class Tarefa {
 		return dataEntrega;
 	}
 
-	public void setDataEntrega(LocalDate dataEntrega) {
-		this.dataEntrega = dataEntrega;
+	public void setDataEntrega(String dataTxt) {
+		this.dataEntrega = LocalDate.parse(dataTxt, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		txtDataEntrega = dataEntrega.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); 
 	}
 
 	public Status getStatus() {
@@ -100,6 +124,12 @@ public class Tarefa {
 		
 		return status;
 	}
+	
+	@Override
+	public String toString() {
+		return codigo + "," + nome + "," + descricao + "," + nomeResponsavel + "," + txtDataInicio + "," + txtDataEntrega + "," + getStatus() + "\n";
+	}
+
 
 
 }

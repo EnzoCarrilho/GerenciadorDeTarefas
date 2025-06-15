@@ -47,7 +47,6 @@ public class FuncionarioDAO {
 				linha = br.readLine();
 				if(linha != null) {
 					String[] funcionarioVetor = linha.split(",");
-					System.out.println(linha);
 					Funcionario funcionario = new Funcionario(null);
 					funcionario.setMatricula(funcionarioVetor[0]);
 					funcionario.setNome(funcionarioVetor[1]);

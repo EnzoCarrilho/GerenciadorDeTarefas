@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import br.dev.enzo.tarefas.factory.ArquivoTarefaFactory;
 import br.dev.enzo.tarefas.model.Funcionario;
 import br.dev.enzo.tarefas.model.Tarefa;
+import br.dev.enzo.tarefas.utils.Utils;
 
 public class TarefaDAO {
 	
@@ -54,23 +55,15 @@ public class TarefaDAO {
 				linha = br.readLine();
 				if(linha != null) {
 					String[] tarefaVetor = linha.split(",");
-					System.out.println(linha);
 					Tarefa tarefa = new Tarefa(null);
 					tarefa.setCodigo(tarefaVetor[0]);
 					tarefa.setNome(tarefaVetor[1]);
 					tarefa.setDescricao(tarefaVetor[2]);
-					
-					Date dataIncio = Date.valueOf(tarefa.getDataInicio());
-					SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-					String stringDataInicio = formato.format(dataIncio); 
-					
-					
-					
-					
-					
-					
-					
-					
+					tarefa.setNomeResponsavel(tarefaVetor[3]);
+					tarefa.setDataInicio(tarefaVetor[4]);
+					//tarefa.setPrazo(Integer.parseInt(tarefaVetor[5]));
+					tarefa.setDataEntrega(tarefaVetor[5]);	
+					tarefas.add(tarefa);
 				}
 			}
 			return tarefas;

@@ -5,7 +5,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -18,31 +18,33 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import br.dev.enzo.tarefas.dao.FuncionarioDAO;
+import br.dev.enzo.tarefas.dao.TarefaDAO;
 import br.dev.enzo.tarefas.model.Funcionario;
+import br.dev.enzo.tarefas.model.Tarefa;
 
-public class FuncionarioListaFrame {
+public class TarefaListaFrame {
 	
 	private JLabel labelTitulo;
 	private JButton buttonNovo;
 	private JButton buttonSair;
 	private DefaultTableModel model; //dados da tabela
-	private JTable tabelaFuncionarios; // tabela visualmente
-	private JScrollPane scrollFuncionarios; // container da tabela
-	String[] colunas = {"CÓDIGO","NOME FUNCIONÁRIO", "CARGO"};
+	private JTable tabelaTarefas; // tabela visualmente
+	private JScrollPane scrollTarefas; // container da tabela
+	String[] colunas = {"CÓDIGO","TAREFA", "DESCRIÇÃO","RESPONSÁVEL","INÍCIO","ENTREGA","STATUS"};
 	
-	public FuncionarioListaFrame(JFrame owner) {
+	public TarefaListaFrame(JFrame owner) {
 		criarTela(owner);
 	}
 	
 	private void criarTela(JFrame owner) {
-		JDialog telaFuncionarioLista = new JDialog(owner, true);
-		telaFuncionarioLista.setSize(700, 500);
-		telaFuncionarioLista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		telaFuncionarioLista.setLayout(null);
-		telaFuncionarioLista.setLocationRelativeTo(null);
-		telaFuncionarioLista.setResizable(false);
+		JDialog telaTarefaLista = new JDialog(owner, true);
+		telaTarefaLista.setSize(700, 500);
+		telaTarefaLista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		telaTarefaLista.setLayout(null);
+		telaTarefaLista.setLocationRelativeTo(null);
+		telaTarefaLista.setResizable(false);
 		
-		Container painel = telaFuncionarioLista.getContentPane();
+		Container painel = telaTarefaLista.getContentPane();
 		
 		labelTitulo = new JLabel("Cadastro de Funcionários");
 		labelTitulo.setBounds(10, 10, 500, 40);
@@ -51,13 +53,13 @@ public class FuncionarioListaFrame {
 		
 		// Criar a Tabela
 		model = new DefaultTableModel(colunas, 100);
-		tabelaFuncionarios = new JTable(model);
-		scrollFuncionarios = new JScrollPane(tabelaFuncionarios);
-		scrollFuncionarios.setBounds(10, 70, 680, 300);
+		tabelaTarefas = new JTable(model);
+		scrollTarefas = new JScrollPane(tabelaTarefas);
+		scrollTarefas.setBounds(10, 70, 680, 300);
 		carregarDadosTabela();
 		
 		buttonNovo = new JButton();
-		buttonNovo.setText("Cadastrar Novo Funcionário");
+		buttonNovo.setText("Cadastrar Nova Tarefa");
 		buttonNovo.setBounds(10, 400, 250, 50);
 		
 		buttonSair = new JButton();
@@ -65,7 +67,7 @@ public class FuncionarioListaFrame {
 		buttonSair.setBounds(270, 400, 150, 50);
 		
 		painel.add(labelTitulo);
-		painel.add(scrollFuncionarios);
+		painel.add(scrollTarefas);
 		painel.add(buttonNovo);
 		painel.add(buttonSair);
 		
@@ -73,7 +75,7 @@ public class FuncionarioListaFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FuncionarioFrame(telaFuncionarioLista);
+				new TarefaFrame(telaTarefaLista);
 				carregarDadosTabela();
 				
 			}
@@ -83,7 +85,7 @@ public class FuncionarioListaFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int resposta = JOptionPane.showConfirmDialog(telaFuncionarioLista, "Sair do sistema?", "Atenção", JOptionPane.YES_NO_OPTION);
+				int resposta = JOptionPane.showConfirmDialog(telaTarefaLista, "Sair do sistema?", "Atenção", JOptionPane.YES_NO_OPTION);
 				if(resposta == 0) {
 				System.exit(JFrame.DISPOSE_ON_CLOSE);
 				}
@@ -91,37 +93,33 @@ public class FuncionarioListaFrame {
 		});
 		
 		
-		telaFuncionarioLista.setVisible(true);
+		telaTarefaLista.setVisible(true);
 		
 	}
 	
 	private void carregarDadosTabela() {
 		
-		FuncionarioDAO dao = new FuncionarioDAO(null);
-		List<Funcionario> funcionarios = dao.getFuncionarios();
+		TarefaDAO dao = new TarefaDAO(null);
+		List<Tarefa> tarefas = dao.getTarefas();
 		
 		int i = 0;
 		
-		Object[] [] dados = new Object[funcionarios.size()][3];
+		Object[] [] dados = new Object[tarefas.size()][7];
 		
-		for(Funcionario f : funcionarios) {
-			dados[i] [0] = f.getMatricula();
-			dados[i] [1] = f.getNome();
-			dados[i] [2] = f.getCargo();
+		for(Tarefa t : tarefas) {
+			dados[i] [0] = t.getCodigo();
+			dados[i] [1] = t.getNome();
+			dados[i] [2] = t.getDescricao();
+			dados[i] [3] = t.getNomeResponsavel();
+			dados[i] [4] = t.getDataInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			dados[i] [5] = t.getDataEntrega().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			dados[i] [6] = t.getStatus();
 			i++;
 		}
 		
 		model.setDataVector(dados, colunas);
 		 
 	}
-	
-	
-	
-
-	
-	
-	
-	
 	
 	
 	
